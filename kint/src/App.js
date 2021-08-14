@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from "./components/Button"
 import { Header } from "./components/Header"
+import { Stamping } from './components/Stamping';
 
 const App = () => {
   const [dateTime, setDateTime] = useState('');
@@ -31,6 +32,7 @@ const App = () => {
     <div>
       <Header dateTime={dateTime} isLoading={isLoading} dayOfWeekStr={dayOfWeekStr} />
       <Button dateTime={dateTime} />
+      <Stamping />
     </div>
   );
 }
