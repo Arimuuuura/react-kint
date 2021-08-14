@@ -47,7 +47,7 @@ const Container = styled.div`
   text-align: center;
 `
 
-const FabContainer = styled.div`
+const BtnContainer = styled.div`
   width: 50%;
   text-align: center;
   display: flex;
@@ -63,27 +63,35 @@ const Btn = styled(Fab)`
   }
 `
 
-export const Button = () => {
+export const Button = ({dateTime}) => {
   const classes = useStyles();
+  const timeNow = (`${dateTime.years}-${dateTime.month}-${dateTime.date}T${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`);
+
+  const setData = (e) => {
+    localStorage.setItem(e, timeNow);
+    alert(`${e}が押されました`);
+    // console.log(e);
+  }
+
   return (
     <Container>
-      <FabContainer>
-        <Btn className={classes.Attendance} onClick={() => { alert('出勤が押されました') }}>
+      <BtnContainer>
+        <Btn className={classes.Attendance} onClick={(e) => { setData(e.target.innerText) }}>
           出勤
         </Btn>
-        <Btn className={classes.Leaving} onClick={() => { alert('出勤が押されました') }}>
+        <Btn className={classes.Leaving} onClick={(e) => { setData(e.target.innerText) }}>
           退勤
         </Btn>
-        <Btn className={classes.Behind} onClick={() => { alert('遅刻が押されました') }}>
+        <Btn className={classes.Behind} onClick={(e) => { setData(e.target.innerText) }}>
           遅刻
         </Btn>
-        <Btn className={classes.LeaveEarly} onClick={() => { alert('早退が押されました') }}>
+        <Btn className={classes.LeaveEarly} onClick={(e) => { setData(e.target.innerText) }}>
           早退
         </Btn>
-        <Btn className={classes.Absence} onClick={() => { alert('欠勤が押されました') }}>
+        <Btn className={classes.Absence} onClick={(e) => { setData(e.target.innerText) }}>
           欠勤
         </Btn>
-      </FabContainer>
+      </BtnContainer>
     </Container>
   )
 }
