@@ -65,10 +65,11 @@ const Btn = styled(Fab)`
 
 export const Button = ({dateTime}) => {
   const classes = useStyles();
-  const timeNow = (`${dateTime.years}-${dateTime.month}-${dateTime.date}T${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`);
+  const today = (`${dateTime.years}-${dateTime.month}-${dateTime.date}`);
+  const time = (`${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`);
 
   const setData = (e) => {
-    localStorage.setItem(e, timeNow);
+    localStorage.setItem(`${today}${e}`, time);
     alert(`${e}が押されました`);
     // console.log(e);
   }
