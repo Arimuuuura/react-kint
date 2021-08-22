@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Fab } from '@material-ui/core';
 import styled from "styled-components";
@@ -45,6 +46,7 @@ const useStyles = makeStyles(() =>
 const Container = styled.div`
   width: 100%;
   text-align: center;
+  margin-top: 40px;
 `
 
 const BtnContainer = styled.div`
@@ -63,33 +65,51 @@ const Btn = styled(Fab)`
   }
 `
 
-export const Button = ({dateTime}) => {
+export const Button = ({time, timeValue}) => {
   const classes = useStyles();
-  const time = (`${dateTime.years}-${dateTime.month}-${dateTime.date}T${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`);
+  const [disabledAttendance, setDisabledAttendance] = useState(false)
+  const [disabledLeaving, setDisabledLeaving] = useState(true)
+  const [disabledBehind, setDisabledBehind] = useState(false)
+  const [disabledLeaveEarly, setDisabledLeaveEarly] = useState(true)
+  const [disabledAbsence, setDisabledAbsence] = useState(false)
 
   const setData = (e) => {
+    const result = time.substring(time.indexOf("T")+1, time.indexOf(":")+3);
+    if (result > timeValue) {
+      console.log('時間を過ぎています');
+    } else {
+      console.log('打刻しました');
+      saveData(e);
+    }
+  }
+  
+  const saveData = (e) => {
     // ローカルストレージへ値を保存
     localStorage.setItem(e, time);
     alert(`${e}が押されました`);
-    // console.log(e);
+    setDisabledAttendance(true);
+    setDisabledLeaving(false);
+    setDisabledBehind(true);
+    setDisabledLeaveEarly(false);
+    setDisabledAbsence(true);
   }
 
   return (
     <Container>
       <BtnContainer>
-        <Btn className={classes.Attendance} onClick={(e) => { setData(e.target.innerText) }}>
+        <Btn disabled={disabledAttendance} className={classes.Attendance} onClick={(e) => { setData(e.target.innerText) }}>
           出勤
         </Btn>
-        <Btn className={classes.Leaving} onClick={(e) => { setData(e.target.innerText) }}>
+        <Btn disabled={disabledLeaving} className={classes.Leaving} onClick={(e) => { setData(e.target.innerText) }}>
           退勤
         </Btn>
-        <Btn className={classes.Behind} onClick={(e) => { setData(e.target.innerText) }}>
+        <Btn disabled={disabledBehind} className={classes.Behind} onClick={(e) => { setData(e.target.innerText) }}>
           遅刻
         </Btn>
-        <Btn className={classes.LeaveEarly} onClick={(e) => { setData(e.target.innerText) }}>
+        <Btn disabled={disabledLeaveEarly} className={classes.LeaveEarly} onClick={(e) => { setData(e.target.innerText) }}>
           早退
         </Btn>
-        <Btn className={classes.Absence} onClick={(e) => { setData(e.target.innerText) }}>
+        <Btn disabled={disabledAbsence} className={classes.Absence} onClick={(e) => { setData(e.target.innerText) }}>
           欠勤
         </Btn>
       </BtnContainer>

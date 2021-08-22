@@ -15,7 +15,7 @@ const Text = styled.p`
   font-size: 16px;
 `
 
-export const Stamping = () => {
+export const Status = () => {
   // ローカルストレージから値を取得
   const attendance = localStorage.getItem('出勤');
   const leaving = localStorage.getItem('退勤');

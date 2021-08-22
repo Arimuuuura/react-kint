@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Button } from "./components/Button"
 import { Header } from "./components/Header"
-import { Stamping } from './components/Stamping';
+import { Shift } from './components/Shift';
+import { Status } from './components/Status';
+import { Test } from './components/Test';
 
 const App = () => {
   const [dateTime, setDateTime] = useState('');
   const [ isLoading, setIsLoading ] = useState(true)
+  const [ timeValue, setTimeValue ] = useState('');
   const dayOfWeekStr = [ '日', '月', '火', '水', '木', '金', '土' ];
+  const time = (`${dateTime.years}-${dateTime.month}-${dateTime.date}T${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -31,8 +35,10 @@ const App = () => {
   return (
     <div>
       <Header dateTime={dateTime} isLoading={isLoading} dayOfWeekStr={dayOfWeekStr} />
-      <Button dateTime={dateTime} />
-      <Stamping />
+      <Shift timeValue={timeValue} setTimeValue={setTimeValue} />
+      <Button time={time} timeValue={timeValue} />
+      <Status />
+      {/* <Test time={time} timeValue={timeValue} /> */}
     </div>
   );
 }
