@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Fab } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TimeData } from '../TimeData';
@@ -60,27 +60,83 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const Button = () => {
+export const Button = (props) => {
   // console.log('button');
+  console.log(props);
+  const { startTimeText, finishTimeText } = props;
 
   const classes = useStyles();
 
   const [isStamp, setIsStamp] = useState(true)
-  const { nowTime } = TimeData();
+  const [attendance, setAttendance] = useState(true)
+  const [leaving, setLeaving] = useState(true)
+  const [behind, setBehind] = useState(true)
+  const [leaveEarly, setLeaveEarly] = useState(true)
+  const [absence, setAbsence] = useState(true)
+  const [isStart, setIsStart] = useState(false)
+  const [isFinish, setIsFinish] = useState(false)
 
-  const onClickTime = (e) => {
+  const { nowTime } = TimeData();
+  const start = startTimeText;
+  const finish = finishTimeText;
+
+  useEffect(() => {
+    // 出勤前
+    if (!isStart) {
+      setAttendance(false);
+      setBehind(false);
+      setAbsence(false);
+    }
+    // 出勤時間を過ぎても打刻されていない時
+    if (!isStart && start < nowTime) {
+      setAttendance(true);
+    }
+    // 出勤 or 遅刻が押された時
+    if (isStart) {
+      setAttendance(true);
+      setBehind(true);
+      setAbsence(true);
+      setLeaving(false);
+      setLeaveEarly(false);
+    }
+    // 退勤時間前に打刻する場合
+    if (isStart && finish > nowTime) {
+      setLeaving(true);
+    }
+    // 退勤 or 早退が押された時
+    if (isFinish) {
+      setLeaving(true);
+      setLeaveEarly(true);
+    }
+  }, [nowTime])
+
+  const onClickStart = (e) => {
     localStorage.setItem(e.target.innerText, nowTime);
     setIsStamp(!isStamp);
+    setIsStart(true);
+  }
+
+  const onClickFinish = (e) => {
+    localStorage.setItem(e.target.innerText, nowTime);
+    setIsStamp(!isStamp);
+    setIsFinish(true);
+  }
+
+  const onClickAbsence = (e) => {
+    localStorage.setItem(e.target.innerText, nowTime);
+    setIsStamp(!isStamp);
+    setIsStart(true);
+    setIsFinish(true);
   }
 
   return (
     <div className={classes.container}>
       <div className={classes.buttonContainer}>
-        <Fab className={classes.Attendance} onClick={ onClickTime }>出勤</Fab>
-        <Fab className={classes.Leaving} onClick={ onClickTime }>退勤</Fab>
-        <Fab className={classes.Behind} onClick={ onClickTime }>遅刻</Fab>
-        <Fab className={classes.LeaveEarly} onClick={ onClickTime }>早退</Fab>
-        <Fab className={classes.Absence} onClick={ onClickTime }>欠勤</Fab>
+        <Fab disabled={attendance} className={classes.Attendance} onClick={ onClickStart }>出勤</Fab>
+        <Fab disabled={leaving} className={classes.Leaving} onClick={ onClickFinish }>退勤</Fab>
+        <Fab disabled={behind} className={classes.Behind} onClick={ onClickStart }>遅刻</Fab>
+        <Fab disabled={leaveEarly} className={classes.LeaveEarly} onClick={ onClickFinish }>早退</Fab>
+        <Fab disabled={absence} className={classes.Absence} onClick={ onClickAbsence }>欠勤</Fab>
       </div>
       <Stamped isStamp={isStamp} />
     </div>
