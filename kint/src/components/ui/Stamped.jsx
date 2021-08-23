@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) =>
 
 export const Stamped = memo((props) => {
   // console.log('stamped');
+  // console.log(props);
   const classes = useStyles();
 
   const rows = [

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Fab } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TimeData } from '../TimeData';
 import { Stamped } from './Stamped';
+import { Button } from '../controls/Button';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -60,9 +60,9 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const Button = (props) => {
+export const ActionButton = (props) => {
   // console.log('button');
-  console.log(props);
+  // console.log(props);
   const { startTimeText, finishTimeText } = props;
 
   const classes = useStyles();
@@ -132,11 +132,11 @@ export const Button = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.buttonContainer}>
-        <Fab disabled={attendance} className={classes.Attendance} onClick={ onClickStart }>出勤</Fab>
-        <Fab disabled={leaving} className={classes.Leaving} onClick={ onClickFinish }>退勤</Fab>
-        <Fab disabled={behind} className={classes.Behind} onClick={ onClickStart }>遅刻</Fab>
-        <Fab disabled={leaveEarly} className={classes.LeaveEarly} onClick={ onClickFinish }>早退</Fab>
-        <Fab disabled={absence} className={classes.Absence} onClick={ onClickAbsence }>欠勤</Fab>
+        <Button disabled={attendance} className={classes.Attendance} onClick={ onClickStart }>出勤</Button>
+        <Button disabled={leaving} className={classes.Leaving} onClick={ onClickFinish }>退勤</Button>
+        <Button disabled={behind} className={classes.Behind} onClick={ onClickStart }>遅刻</Button>
+        <Button disabled={leaveEarly} className={classes.LeaveEarly} onClick={ onClickFinish }>早退</Button>
+        <Button disabled={absence} className={classes.Absence} onClick={ onClickAbsence }>欠勤</Button>
       </div>
       <Stamped isStamp={isStamp} />
     </div>

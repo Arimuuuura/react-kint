@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Clock } from './components/ui/Clock';
-import { Button } from './components/ui/Button';
-import { TimeTable } from './components/ui/TimeTable';
+import { Clock } from './components/controls/Clock';
+import { ActionButton } from './components/ui/ActionButton';
+import { TimeTable } from './components/controls/TimeTable';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +36,7 @@ export const App = () => {
         <TimeTable value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue="10:00" />
         <TimeTable value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue="19:00" />
       </form>
-      <Button startTimeText={ startTimeText } finishTimeText={ finishTimeText } />
+      <ActionButton startTimeText={ startTimeText } finishTimeText={ finishTimeText } />
     </>
   )
 }
