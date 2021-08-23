@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core'
+import { TimeData } from '../TimeData';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -18,15 +19,10 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export const Clock = (props) => {
-  // console.log(props);
+export const Clock = () => {
+
+  const { today, nowTime } = TimeData()
   const classes = useStyles();
-
-  const { time } = props;
-
-  const dayOfWeekStr = [ '日', '月', '火', '水', '木', '金', '土' ];
-  const today = `${time.years}年${time.month + 1}月${time.date}日(${dayOfWeekStr[time.day]})`;
-  const nowTime = `${time.hours}:${time.minutes}:${time.seconds}`
 
   return (
     <header className={classes.container}>
