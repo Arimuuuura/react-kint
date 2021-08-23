@@ -1,46 +1,42 @@
-import { useState, useEffect } from 'react';
-import { Button } from "./components/Button"
-import { Header } from "./components/Header"
-import { Shift } from './components/Shift';
-import { Status } from './components/Status';
-import { Test } from './components/Test';
+import React, { useState } from 'react';
+import { Clock } from './components/controls/Clock';
+import { ActionButton } from './components/ui/ActionButton';
+import { TimeTable } from './components/controls/TimeTable';
+import { makeStyles } from '@material-ui/core/styles';
 
-const App = () => {
-  const [dateTime, setDateTime] = useState('');
-  const [ isLoading, setIsLoading ] = useState(true)
-  const [ timeValue, setTimeValue ] = useState('');
-  const dayOfWeekStr = [ '日', '月', '火', '水', '木', '金', '土' ];
-  const time = (`${dateTime.years}-${dateTime.month}-${dateTime.date}T${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`);
+const useStyles = makeStyles((theme) => ({
+  formContainer: {
+    width: '50%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    margin: '0 auto',
+    justifyContent: 'space-around',
+    marginBottom: theme.spacing(5),
+    '& .MuiTextField-root': {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: '200px',
+    }
+  },
+}));
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const date = new Date();
+export const App = () => {
+  const classes = useStyles();
 
-      setDateTime({
-        years: date.getFullYear(),
-        month: date.getMonth(),
-        date: date.getDate(),
-        day: date.getDay(),
-        // 数字が一桁だった場合0で埋める
-        hours: date.getHours().toString().padStart(2, '0'),
-        minutes: date.getMinutes().toString().padStart(2, '0'),
-        seconds: date.getSeconds().toString().padStart(2, '0')
-      });
+  const [startTimeText, setStartTimeText] = useState('')
+  const [finishTimeText, setFinishTimeText] = useState('')
 
-      setIsLoading(false);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const onChangeStartTime = (e) => setStartTimeText(`${e.target.value}:00`);
+  const onChangeFinishTime = (e) => setFinishTimeText(`${e.target.value}:00`);
 
   return (
-    <div>
-      <Header dateTime={dateTime} isLoading={isLoading} dayOfWeekStr={dayOfWeekStr} />
-      <Shift timeValue={timeValue} setTimeValue={setTimeValue} />
-      <Button time={time} timeValue={timeValue} />
-      <Status />
-      {/* <Test time={time} timeValue={timeValue} /> */}
-    </div>
-  );
+    <>
+      <Clock />
+      <form className={classes.formContainer} noValidate>
+        <TimeTable value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue="10:00" />
+        <TimeTable value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue="19:00" />
+      </form>
+      <ActionButton startTimeText={ startTimeText } finishTimeText={ finishTimeText } />
+    </>
+  )
 }
-
-export default App;
