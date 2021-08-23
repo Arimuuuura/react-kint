@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Fab } from '@material-ui/core';
+import { Stamped } from './components/Stamped';
+import { Clock } from './components/Clock';
 
 export const App = () => {
 
   const [dateTime, setDateTime] = useState('');
-  const dayOfWeekStr = [ '日', '月', '火', '水', '木', '金', '土' ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -22,23 +23,23 @@ export const App = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const nowTime = `${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`
+
+  const onClickTime = (e) => {
+    localStorage.setItem(e.target.innerText, nowTime);
+  }
+
   return (
     <>
-      <header>
-        <p>
-          {`${dateTime.years}年${dateTime.month + 1}月${dateTime.date}日(${dayOfWeekStr[dateTime.day]})`}
-        </p>
-        <p>
-          {`${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`}
-        </p>
-      </header>
+      <Clock time={ dateTime } />
       <div>
-        <Fab>出勤</Fab>
-        <Fab>退勤</Fab>
-        <Fab>遅刻</Fab>
-        <Fab>早退</Fab>
-        <Fab>欠勤</Fab>
+        <Fab onClick={ onClickTime }>出勤</Fab>
+        <Fab onClick={ onClickTime }>退勤</Fab>
+        <Fab onClick={ onClickTime }>遅刻</Fab>
+        <Fab onClick={ onClickTime }>早退</Fab>
+        <Fab onClick={ onClickTime }>欠勤</Fab>
       </div>
+      <Stamped />
     </>
   )
 }
