@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(5),
       marginLeft: 'auto',
       marginRight: 'auto',
-      border: '1px solid #bdbdbd',
+      border: '1px solid #b0bec5',
       borderRadius: '10px',
     },
     table: {
       '& thead': {
-        backgroundColor: '#bdbdbd',
+        backgroundColor: '#b0bec5',
         '& th': {
           color: '#666',
           fontSize: '16px',
