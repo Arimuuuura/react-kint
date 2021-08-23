@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 export const TimeData = () => {
   const [dateTime, setDateTime] = useState('');
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -15,6 +16,7 @@ export const TimeData = () => {
         minutes: date.getMinutes().toString().padStart(2, '0'),
         seconds: date.getSeconds().toString().padStart(2, '0'),
       });
+      setIsLoading(false);
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -23,5 +25,5 @@ export const TimeData = () => {
   const today = `${dateTime.years}年${dateTime.month + 1}月${dateTime.date}日(${dayOfWeekStr[dateTime.day]})`;
   const nowTime = `${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`
 
-  return {today, nowTime}
+  return {today, nowTime, isLoading}
 }

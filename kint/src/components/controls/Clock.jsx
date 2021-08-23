@@ -21,17 +21,23 @@ const useStyles = makeStyles(theme => ({
 
 export const Clock = () => {
 
-  const { today, nowTime } = TimeData()
+  const { today, nowTime, isLoading } = TimeData()
   const classes = useStyles();
 
-  return (
-    <header className={classes.container}>
-      <div className={classes.today}>
-        { today }
-      </div>
-      <div className={classes.currentTime}>
-        { nowTime }
-      </div>
-    </header>
+  return (isLoading ?
+    (
+      <header className={classes.container}>
+        <h1>Loading...</h1>
+      </header>
+    ) : (
+      <header className={classes.container}>
+        <div className={classes.today}>
+          { today }
+        </div>
+        <div className={classes.currentTime}>
+          { nowTime }
+        </div>
+      </header>
+    )
   )
 }
