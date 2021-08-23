@@ -15,13 +15,3 @@ $ yarn start
 `
 $ npm install @material-ui/core
 `
-
-### Material-UI iconsをインストール
-`
-$ npm install @material-ui/icons
-`
-
-### styled-componentsをインストール
-`
-$ npm install --save styled-components
-`
