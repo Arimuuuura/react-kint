@@ -1,21 +1,67 @@
 import React, { memo } from 'react'
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    tableContainer: {
+      marginTop: theme.spacing(5),
+    },
+    table: {
+      maxWidth: '50%',
+      margin: '0 auto',
+      '& thead': {
+        backgroundColor: '#eee',
+        '& th': {
+          color: '#666',
+          fontSize: '16px',
+          fontWeight: 'bold',
+        }
+      },
+    },
+  })
+);
 
 export const Stamped = memo((props) => {
   // console.log('stamped');
+  const classes = useStyles();
 
-  const attendance = localStorage.getItem('出勤');
-  const leaving = localStorage.getItem('退勤');
-  const behind = localStorage.getItem('遅刻');
-  const leaveEarly = localStorage.getItem('早退');
-  const absence = localStorage.getItem('欠勤');
+  const rows = [
+    {id: '出勤', time: localStorage.getItem('出勤')},
+    {id: '退勤', time: localStorage.getItem('退勤')},
+    {id: '遅刻', time: localStorage.getItem('遅刻')},
+    {id: '早退', time: localStorage.getItem('早退')},
+    {id: '欠勤', time: localStorage.getItem('欠勤')},
+  ];
 
   return (
-    <div>
-      <p>{ `出勤 : ${attendance}` }</p>
-      <p>{ `退勤 : ${leaving}` }</p>
-      <p>{ `遅刻 : ${behind}` }</p>
-      <p>{ `早退 : ${leaveEarly}` }</p>
-      <p>{ `欠勤 : ${absence}` }</p>
-    </div>
+    <>
+      <TableContainer className={classes.tableContainer}>
+        <Table component={Paper} className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">打刻内容</TableCell>
+              <TableCell align="center">時刻</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row" align="center">
+                  {row.id}
+                </TableCell>
+                <TableCell align="center">{row.time}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   )
 })
