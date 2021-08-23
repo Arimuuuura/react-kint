@@ -6,16 +6,18 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     tableContainer: {
+      maxWidth: '50%',
       marginTop: theme.spacing(5),
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      border: '1px solid #e0e0e0',
+      borderRadius: '10px',
     },
     table: {
-      maxWidth: '50%',
-      margin: '0 auto',
       '& thead': {
         backgroundColor: '#eee',
         '& th': {
@@ -43,7 +45,7 @@ export const Stamped = memo((props) => {
   return (
     <>
       <TableContainer className={classes.tableContainer}>
-        <Table component={Paper} className={classes.table} aria-label="simple table">
+        <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell align="center">打刻内容</TableCell>
