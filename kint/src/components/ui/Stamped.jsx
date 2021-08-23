@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-export const Stamped = () => {
+export const Stamped = memo((props) => {
   // console.log('stamped');
 
   const attendance = localStorage.getItem('出勤');
@@ -18,4 +18,4 @@ export const Stamped = () => {
       <p>{ `欠勤 : ${absence}` }</p>
     </div>
   )
-}
+})
