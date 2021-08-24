@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 export const App = () => {
   const classes = useStyles();
 
-  const [startTimeText, setStartTimeText] = useState('')
-  const [finishTimeText, setFinishTimeText] = useState('')
+  const [startTimeText, setStartTimeText] = useState('10:00')
+  const [finishTimeText, setFinishTimeText] = useState('19:00')
 
   const onChangeStartTime = (e) => setStartTimeText(`${e.target.value}:00`);
   const onChangeFinishTime = (e) => setFinishTimeText(`${e.target.value}:00`);
