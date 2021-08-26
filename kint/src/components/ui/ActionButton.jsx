@@ -30,12 +30,6 @@ const useStyles = makeStyles((theme) =>
         backgroundColor: '#f48fb1',
       }
     },
-    Absence: {
-      backgroundColor: '#9c27b0',
-      '&:hover': {
-        backgroundColor: '#ce93d8',
-      }
-    },
     container: {
       width: '100%',
       textAlign: 'center',
@@ -72,7 +66,6 @@ export const ActionButton = (props) => {
   const [leaving, setLeaving] = useState(true)
   const [behind, setBehind] = useState(true)
   const [leaveEarly, setLeaveEarly] = useState(true)
-  const [absence, setAbsence] = useState(true)
   const [isStart, setIsStart] = useState(false)
   const [isFinish, setIsFinish] = useState(false)
 
@@ -81,29 +74,27 @@ export const ActionButton = (props) => {
   const finish = finishTimeText;
 
   useEffect(() => {
-    // 出勤前
+    // 出勤 or 遅刻
     if (!isStart) {
       setAttendance(false);
       setBehind(false);
-      setAbsence(false);
-    }
-    // 出勤時間を過ぎても打刻されていない時
-    if (!isStart && start < nowTime) {
-      setAttendance(true);
-    }
-    // 出勤 or 遅刻が押された時
-    if (isStart) {
+      if (start > nowTime) {
+        setBehind(true);
+      } else if (start < nowTime) {
+        setAttendance(true);
+      }
+    } else {
+      // 退勤 or 早退
       setAttendance(true);
       setBehind(true);
-      setAbsence(true);
       setLeaving(false);
       setLeaveEarly(false);
+      if (finish > nowTime) {
+        setLeaving(true);
+      } else if (finish < nowTime) {
+        setLeaveEarly(true);
+      }
     }
-    // 退勤時間前に打刻する場合
-    if (isStart && finish > nowTime) {
-      setLeaving(true);
-    }
-    // 退勤 or 早退が押された時
     if (isFinish) {
       setLeaving(true);
       setLeaveEarly(true);
@@ -122,13 +113,6 @@ export const ActionButton = (props) => {
     setIsFinish(true);
   }
 
-  const onClickAbsence = (e) => {
-    localStorage.setItem(e.target.innerText, nowTime);
-    setIsStamp(!isStamp);
-    setIsStart(true);
-    setIsFinish(true);
-  }
-
   return (
     <div className={classes.container}>
       <div className={classes.buttonContainer}>
@@ -136,7 +120,6 @@ export const ActionButton = (props) => {
         <Button disabled={leaving} className={classes.Leaving} onClick={ onClickFinish }>退勤</Button>
         <Button disabled={behind} className={classes.Behind} onClick={ onClickStart }>遅刻</Button>
         <Button disabled={leaveEarly} className={classes.LeaveEarly} onClick={ onClickFinish }>早退</Button>
-        <Button disabled={absence} className={classes.Absence} onClick={ onClickAbsence }>欠勤</Button>
       </div>
       <Stamped isStamp={isStamp} />
     </div>

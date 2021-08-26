@@ -40,7 +40,6 @@ export const Stamped = memo((props) => {
     {id: '退勤', time: localStorage.getItem('退勤')},
     {id: '遅刻', time: localStorage.getItem('遅刻')},
     {id: '早退', time: localStorage.getItem('早退')},
-    {id: '欠勤', time: localStorage.getItem('欠勤')},
   ];
 
   return (
