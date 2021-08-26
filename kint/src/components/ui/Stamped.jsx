@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { localStorageKey } from '../data/localStorageKey';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -35,12 +36,7 @@ export const Stamped = memo((props) => {
   // console.log(props);
   const classes = useStyles();
 
-  const rows = [
-    {id: '出勤', time: localStorage.getItem('出勤')},
-    {id: '退勤', time: localStorage.getItem('退勤')},
-    {id: '遅刻', time: localStorage.getItem('遅刻')},
-    {id: '早退', time: localStorage.getItem('早退')},
-  ];
+  const keys = localStorageKey();
 
   return (
     <>
@@ -53,12 +49,12 @@ export const Stamped = memo((props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
+            {keys.map((key) => (
+              <TableRow key={key.id}>
                 <TableCell component="th" scope="row" align="center">
-                  {row.id}
+                  {key.id}
                 </TableCell>
-                <TableCell align="center">{row.time}</TableCell>
+                <TableCell align="center">{localStorage.getItem(key.id)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
