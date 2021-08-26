@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TimeData } from '../TimeData';
-import { Stamped } from './Stamped';
+import { TimeData } from '../data/TimeData';
+import { TimeTable } from '../controls/TimeTable';
 import { Button } from '../controls/Button';
+import { Stamped } from './Stamped';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -30,12 +31,6 @@ const useStyles = makeStyles((theme) =>
         backgroundColor: '#f48fb1',
       }
     },
-    Absence: {
-      backgroundColor: '#9c27b0',
-      '&:hover': {
-        backgroundColor: '#ce93d8',
-      }
-    },
     container: {
       width: '100%',
       textAlign: 'center',
@@ -56,87 +51,106 @@ const useStyles = makeStyles((theme) =>
           fontWeight: 'bold',
         }
       }
-    }
+    },
+    formContainer: {
+      width: '50%',
+      display: 'flex',
+      flexWrap: 'wrap',
+      margin: '0 auto',
+      justifyContent: 'space-around',
+      marginBottom: theme.spacing(5),
+      '& .MuiTextField-root': {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: '200px',
+      }
+    },
   })
 );
 
-export const ActionButton = (props) => {
+export const ActionButton = () => {
   // console.log('button');
   // console.log(props);
-  const { startTimeText, finishTimeText } = props;
 
   const classes = useStyles();
 
-  const [isStamp, setIsStamp] = useState(true)
+  // 出退勤時間入力フォームの state
+  const [startTimeText, setStartTimeText] = useState('10:00')
+  const [finishTimeText, setFinishTimeText] = useState('19:00')
+
+  // 各ボタンの state
   const [attendance, setAttendance] = useState(true)
   const [leaving, setLeaving] = useState(true)
   const [behind, setBehind] = useState(true)
   const [leaveEarly, setLeaveEarly] = useState(true)
-  const [absence, setAbsence] = useState(true)
+
+  // 出退勤時間と現在時刻の差異を見るための state
   const [isStart, setIsStart] = useState(false)
   const [isFinish, setIsFinish] = useState(false)
+
+  // 打刻された際 localStorage の表示を更新するための state
+  const [isStamp, setIsStamp] = useState(true)
 
   const { nowTime } = TimeData();
   const start = startTimeText;
   const finish = finishTimeText;
 
+  // 出退勤時間入力フォームの state と現在時刻の差異を毎秒ごとに監視
   useEffect(() => {
-    // 出勤前
+    // 出勤 or 遅刻
     if (!isStart) {
       setAttendance(false);
       setBehind(false);
-      setAbsence(false);
-    }
-    // 出勤時間を過ぎても打刻されていない時
-    if (!isStart && start < nowTime) {
-      setAttendance(true);
-    }
-    // 出勤 or 遅刻が押された時
-    if (isStart) {
+      if (start > nowTime) {
+        setBehind(true);
+      } else if (start < nowTime) {
+        setAttendance(true);
+      }
+    } else {
+      // 退勤 or 早退
       setAttendance(true);
       setBehind(true);
-      setAbsence(true);
       setLeaving(false);
       setLeaveEarly(false);
+      if (finish > nowTime) {
+        setLeaving(true);
+      } else if (finish < nowTime) {
+        setLeaveEarly(true);
+      }
     }
-    // 退勤時間前に打刻する場合
-    if (isStart && finish > nowTime) {
-      setLeaving(true);
-    }
-    // 退勤 or 早退が押された時
     if (isFinish) {
       setLeaving(true);
       setLeaveEarly(true);
     }
   }, [nowTime])
 
+  // 出退勤時間入力フォームに変更があった際の onChange event
+  const onChangeStartTime = (e) => setStartTimeText(`${e.target.value}:00`);
+  const onChangeFinishTime = (e) => setFinishTimeText(`${e.target.value}:00`);
+
+  // 打刻があった際の onClick event
   const onClickStart = (e) => {
     localStorage.setItem(e.target.innerText, nowTime);
     setIsStamp(!isStamp);
     setIsStart(true);
   }
-
   const onClickFinish = (e) => {
     localStorage.setItem(e.target.innerText, nowTime);
     setIsStamp(!isStamp);
     setIsFinish(true);
   }
 
-  const onClickAbsence = (e) => {
-    localStorage.setItem(e.target.innerText, nowTime);
-    setIsStamp(!isStamp);
-    setIsStart(true);
-    setIsFinish(true);
-  }
-
   return (
     <div className={classes.container}>
+      <form className={classes.formContainer} noValidate>
+        <TimeTable value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue="10:00" />
+        <TimeTable value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue="19:00" />
+      </form>
       <div className={classes.buttonContainer}>
         <Button disabled={attendance} className={classes.Attendance} onClick={ onClickStart }>出勤</Button>
         <Button disabled={leaving} className={classes.Leaving} onClick={ onClickFinish }>退勤</Button>
         <Button disabled={behind} className={classes.Behind} onClick={ onClickStart }>遅刻</Button>
         <Button disabled={leaveEarly} className={classes.LeaveEarly} onClick={ onClickFinish }>早退</Button>
-        <Button disabled={absence} className={classes.Absence} onClick={ onClickAbsence }>欠勤</Button>
       </div>
       <Stamped isStamp={isStamp} />
     </div>
