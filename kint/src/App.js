@@ -3,7 +3,7 @@ import { Clock } from './components/controls/Clock';
 import { ActionButton } from './components/ui/ActionButton';
 import { TimeTable } from './components/controls/TimeTable';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconLabelButtons } from './components/controls/ResetButton';
+import { ResetButton } from './components/controls/ResetButton';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -38,7 +38,7 @@ export const App = () => {
         <TimeTable value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue="19:00" />
       </form>
       <ActionButton startTimeText={ startTimeText } finishTimeText={ finishTimeText } />
-      <IconLabelButtons />
+      <ResetButton />
     </>
   )
 }

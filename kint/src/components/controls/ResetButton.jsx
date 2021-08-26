@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const IconLabelButtons = () => {
+export const ResetButton = () => {
   // console.log('reset');
   const classes = useStyles();
 
