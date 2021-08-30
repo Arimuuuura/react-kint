@@ -92,8 +92,8 @@ export const ActionButton = () => {
   const [isStamp, setIsStamp] = useState(true)
 
   const { nowTime } = useTimeData();
-  const start = startTimeText;
-  const finish = finishTimeText;
+  const start = localStorage.getItem('StartTime') || startTimeText;
+  const finish = localStorage.getItem('FinishTime') || finishTimeText;
 
   // 出退勤時間入力フォームの state と現在時刻の差異を毎秒ごとに監視
   useEffect(() => {
@@ -151,8 +151,8 @@ export const ActionButton = () => {
   return (
     <div className={classes.container}>
       <form className={classes.formContainer} noValidate>
-        <TimeField value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue={localStorage.getItem('StartTime') || startTimeText} />
-        <TimeField value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue={localStorage.getItem('FinishTime') || finishTimeText} />
+        <TimeField value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue={start} />
+        <TimeField value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue={finish} />
       </form>
       <div className={classes.buttonContainer}>
         <Button disabled={attendance} className={classes.Attendance} onClick={ onClickStart }>出勤</Button>
