@@ -125,8 +125,16 @@ export const ActionButton = () => {
   }, [nowTime])
 
   // 出退勤時間入力フォームに変更があった際の onChange event
-  const onChangeStartTime = (e) => setStartTimeText(`${e.target.value}:00`);
-  const onChangeFinishTime = (e) => setFinishTimeText(`${e.target.value}:00`);
+  const onChangeStartTime = (e) => {
+    const startTime = `${e.target.value}:00`;
+    setStartTimeText(startTime);
+    localStorage.setItem('StartTime', startTime);
+  }
+  const onChangeFinishTime = (e) => {
+    const finishTime = `${e.target.value}:00`;
+    setFinishTimeText(finishTime);
+    localStorage.setItem('FinishTime', finishTime);
+  }
 
   // 打刻があった際の onClick event
   const onClickStart = (e) => {
@@ -143,8 +151,8 @@ export const ActionButton = () => {
   return (
     <div className={classes.container}>
       <form className={classes.formContainer} noValidate>
-        <TimeTable value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue="10:00" />
-        <TimeTable value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue="19:00" />
+        <TimeTable value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue={localStorage.getItem('StartTime') || startTimeText} />
+        <TimeTable value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue={localStorage.getItem('FinishTime') || finishTimeText} />
       </form>
       <div className={classes.buttonContainer}>
         <Button disabled={attendance} className={classes.Attendance} onClick={ onClickStart }>出勤</Button>
