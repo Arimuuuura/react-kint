@@ -1,10 +1,12 @@
 export const localStorageKey = () => {
 
   const keys = [
-    {id: '出勤'},
-    {id: '退勤'},
-    {id: '遅刻'},
-    {id: '早退'},
+    {id: '出勤', showFlag: true},
+    {id: '退勤', showFlag: true},
+    {id: '遅刻', showFlag: true},
+    {id: '早退', showFlag: true},
+    {id: 'StartTime', showFlag: false},
+    {id: 'FinishTime', showFlag: false},
   ];
 
   return keys;

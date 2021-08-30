@@ -49,14 +49,17 @@ export const Stamped = memo((props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {keys.map((key) => (
-              <TableRow key={key.id}>
-                <TableCell component="th" scope="row" align="center">
-                  {key.id}
-                </TableCell>
-                <TableCell align="center">{localStorage.getItem(key.id)}</TableCell>
-              </TableRow>
-            ))}
+            {
+              keys.map((key) => (
+                key.showFlag &&
+                <TableRow key={key.id}>
+                  <TableCell component="th" scope="row" align="center">
+                    {key.id}
+                  </TableCell>
+                  <TableCell align="center">{localStorage.getItem(key.id)}</TableCell>
+                </TableRow>
+              ))
+            }
           </TableBody>
         </Table>
       </TableContainer>
