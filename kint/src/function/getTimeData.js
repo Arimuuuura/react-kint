@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-export const TimeData = () => {
+export const useTimeData = () => {
   const [dateTime, setDateTime] = useState('');
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -23,7 +23,7 @@ export const TimeData = () => {
 
   const dayOfWeekStr = [ '日', '月', '火', '水', '木', '金', '土' ];
   const today = `${dateTime.years}年${dateTime.month + 1}月${dateTime.date}日(${dayOfWeekStr[dateTime.day]})`;
-  const nowTime = `${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`
+  const nowTime = `${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`;
 
   return {today, nowTime, isLoading}
 }

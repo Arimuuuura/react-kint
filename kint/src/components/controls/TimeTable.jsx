@@ -1,12 +1,59 @@
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import React, { memo } from 'react'
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { KEYS } from '../../constants/localStorageKey';
 
-export const TimeTable = (props) => {
-  // console.log(props);
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    tableContainer: {
+      maxWidth: '50%',
+      marginTop: theme.spacing(5),
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      border: '1px solid #b0bec5',
+      borderRadius: '10px',
+    },
+    table: {
+      '& thead': {
+        backgroundColor: '#b0bec5',
+        '& th': {
+          color: '#666',
+          fontSize: '16px',
+          fontWeight: 'bold',
+        }
+      },
+    },
+  })
+);
 
-  const { onChange, label, defaultValue, type } = props;
+export const TimeTable = memo(() => {
+  // console.log('TimeTable');
+
+  const classes = useStyles();
 
   return (
-    <TextField onChange={onChange} label={label} defaultValue={defaultValue} type={type} />
-  );
-}
+    <TableContainer className={classes.tableContainer}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">打刻内容</TableCell>
+            <TableCell align="center">時刻</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {
+            KEYS.map((key) => (
+              key.showFlag &&
+              <TableRow key={key.id}>
+                <TableCell component="th" scope="row" align="center">
+                  {key.id}
+                </TableCell>
+                <TableCell align="center">{localStorage.getItem(key.id)}</TableCell>
+              </TableRow>
+            ))
+          }
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
+})
