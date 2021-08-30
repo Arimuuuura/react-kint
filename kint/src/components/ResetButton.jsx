@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Button } from '@material-ui/core';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import { KEYS } from '../_constants/localStorageKey';
+import { KEYS } from '../constants/localStorageKey';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ResetButton = () => {
-  // console.log('reset');
+  // console.log('ResetButton');
+
   const classes = useStyles();
 
   const onClickReset = () => {

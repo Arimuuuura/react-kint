@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
-import { KEYS } from '../../_constants/localStorageKey';
+import { KEYS } from '../../constants/localStorageKey';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -26,9 +26,9 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const TimeTable = memo((props) => {
-  // console.log('stamped');
-  // console.log(props);
+export const TimeTable = memo(() => {
+  // console.log('TimeTable');
+
   const classes = useStyles();
 
   return (

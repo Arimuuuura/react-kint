@@ -69,8 +69,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 export const ActionButton = () => {
-  // console.log('button');
-  // console.log(props);
+  // console.log('ActionButton');
 
   const classes = useStyles();
 
