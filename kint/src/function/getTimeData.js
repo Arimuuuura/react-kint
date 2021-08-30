@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const TimeData = () => {
+export const useTimeData = () => {
   const [dateTime, setDateTime] = useState('');
   const [isLoading, setIsLoading] = useState(true)
 

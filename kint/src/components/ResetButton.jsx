@@ -1,8 +1,7 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Button } from '@material-ui/core';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import { localStorageKey } from '../data/localStorageKey';
+import { KEYS } from '../_constants/localStorageKey';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -22,11 +21,9 @@ export const ResetButton = () => {
   // console.log('reset');
   const classes = useStyles();
 
-  const keys = localStorageKey();
-
   const onClickReset = () => {
     alert('localStorage の打刻データを削除しますか？');
-    keys.map((key) => (
+    KEYS.map((key) => (
       localStorage.removeItem(key.id)
     ))
     window.location.reload();

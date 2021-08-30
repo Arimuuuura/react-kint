@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TimeData } from '../data/TimeData';
-import { TimeTable } from '../controls/TimeTable';
-import { Button } from '../controls/Button';
-import { Stamped } from './Stamped';
+import { useTimeData } from '../../function/getTimeData';
+import { TimeField } from '../TimeField';
+import { Button } from '../Button';
+import { TimeTable } from './TimeTable';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -91,7 +91,7 @@ export const ActionButton = () => {
   // 打刻された際 localStorage の表示を更新するための state
   const [isStamp, setIsStamp] = useState(true)
 
-  const { nowTime } = TimeData();
+  const { nowTime } = useTimeData();
   const start = startTimeText;
   const finish = finishTimeText;
 
@@ -151,8 +151,8 @@ export const ActionButton = () => {
   return (
     <div className={classes.container}>
       <form className={classes.formContainer} noValidate>
-        <TimeTable value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue={localStorage.getItem('StartTime') || startTimeText} />
-        <TimeTable value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue={localStorage.getItem('FinishTime') || finishTimeText} />
+        <TimeField value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue={localStorage.getItem('StartTime') || startTimeText} />
+        <TimeField value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue={localStorage.getItem('FinishTime') || finishTimeText} />
       </form>
       <div className={classes.buttonContainer}>
         <Button disabled={attendance} className={classes.Attendance} onClick={ onClickStart }>出勤</Button>
@@ -160,7 +160,7 @@ export const ActionButton = () => {
         <Button disabled={behind} className={classes.Behind} onClick={ onClickStart }>遅刻</Button>
         <Button disabled={leaveEarly} className={classes.LeaveEarly} onClick={ onClickFinish }>早退</Button>
       </div>
-      <Stamped isStamp={isStamp} />
+      <TimeTable isStamp={isStamp} />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Clock } from './components/controls/Clock';
-import { ActionButton } from './components/ui/ActionButton';
-import { ResetButton } from './components/controls/ResetButton';
+import { Clock } from './components/Clock';
+import { ActionButton } from './components/controls/ActionButton';
+import { ResetButton } from './components/ResetButton';
 
 export const App = () => {
 
