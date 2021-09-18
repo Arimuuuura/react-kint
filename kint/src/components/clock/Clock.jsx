@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core'
-import { useTimeData } from '../function/getTimeData';
+import { useTimeData } from '../../function/getTimeData';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export const Clock = () => {
 
-  const { today, nowTime, isLoading } = useTimeData()
+  const { today, currentTime, isLoading } = useTimeData()
   const classes = useStyles();
 
   return (isLoading ?
@@ -35,7 +35,7 @@ export const Clock = () => {
           { today }
         </div>
         <div className={classes.currentTime}>
-          { nowTime }
+          { currentTime }
         </div>
       </header>
     )

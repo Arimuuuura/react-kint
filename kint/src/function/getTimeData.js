@@ -23,7 +23,7 @@ export const useTimeData = () => {
 
   const dayOfWeekStr = [ '日', '月', '火', '水', '木', '金', '土' ];
   const today = `${dateTime.years}年${dateTime.month + 1}月${dateTime.date}日(${dayOfWeekStr[dateTime.day]})`;
-  const nowTime = `${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`;
+  const currentTime = `${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`;
 
-  return {today, nowTime, isLoading}
+  return {today, currentTime, isLoading}
 }

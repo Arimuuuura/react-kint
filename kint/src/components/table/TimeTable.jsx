@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import { KEYS } from '../../constants/localStorageKey';
@@ -26,8 +26,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const TimeTable = memo(() => {
-  // console.log('TimeTable');
+export const TimeTable = () => {
 
   const classes = useStyles();
 
@@ -43,7 +42,7 @@ export const TimeTable = memo(() => {
         <TableBody>
           {
             KEYS.map((key) => (
-              key.showFlag &&
+              key.isShow &&
               <TableRow key={key.id}>
                 <TableCell component="th" scope="row" align="center">
                   {key.id}
@@ -56,4 +55,4 @@ export const TimeTable = memo(() => {
       </Table>
     </TableContainer>
   )
-})
+}
