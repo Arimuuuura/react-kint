@@ -50,6 +50,7 @@ export const useTimeDiff = () => {
       setLeaving(true);
       setLeaveEarly(true);
     }
+    // eslint-disable-next-line
   }, [currentTime])
 
   // 出退勤時間入力フォームに変更があった際の onChange event
