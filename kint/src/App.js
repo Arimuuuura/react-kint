@@ -1,14 +1,14 @@
 import React from 'react';
-import { Clock } from './components/Clock';
-import { ActionButton } from './components/controls/ActionButton';
-import { ResetButton } from './components/ResetButton';
+import { ResetButton } from './components/button/ResetButton';
+import { Clock } from './components/clock/Clock';
+import { MainArea } from './components/MainArea';
 
 export const App = () => {
 
   return (
     <>
       <Clock />
-      <ActionButton />
+      <MainArea />
       <ResetButton />
     </>
   )

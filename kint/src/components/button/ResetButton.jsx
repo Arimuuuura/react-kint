@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import { BaseButton } from './base/BaseButton';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import { KEYS } from '../constants/localStorageKey';
+import { KEYS } from '../../constants/localStorageKey';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ResetButton = () => {
-  // console.log('ResetButton');
 
   const classes = useStyles();
 
@@ -33,7 +33,7 @@ export const ResetButton = () => {
   return (
     <div className={classes.container}>
       <div className={classes.buttonContainer}>
-        <Button
+        <BaseButton
           onClick={onClickReset}
           variant="contained"
           color="secondary"
@@ -42,7 +42,7 @@ export const ResetButton = () => {
           startIcon={<RotateLeftIcon />}
         >
           RESET
-        </Button>
+        </BaseButton>
       </div>
     </div>
   );

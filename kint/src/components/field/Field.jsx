@@ -1,8 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-export const TimeField = (props) => {
-  // console.log(props);
+export const Field = (props) => {
 
   const { onChange, label, defaultValue, type } = props;
 

@@ -19,7 +19,7 @@ export const useTimeDiff = () => {
   // 打刻された際 localStorage の表示を更新するための state
   const [isStamp, setIsStamp] = useState(true)
 
-  const { nowTime } = useTimeData();
+  const { currentTime } = useTimeData();
   const start = localStorage.getItem('StartTime') || startTimeText;
   const finish = localStorage.getItem('FinishTime') || finishTimeText;
 
@@ -29,9 +29,9 @@ export const useTimeDiff = () => {
     if (!isStart) {
       setAttendance(false);
       setBehind(false);
-      if (start > nowTime) {
+      if (start > currentTime) {
         setBehind(true);
-      } else if (start < nowTime) {
+      } else if (start < currentTime) {
         setAttendance(true);
       }
     } else {
@@ -40,9 +40,9 @@ export const useTimeDiff = () => {
       setBehind(true);
       setLeaving(false);
       setLeaveEarly(false);
-      if (finish > nowTime) {
+      if (finish > currentTime) {
         setLeaving(true);
-      } else if (finish < nowTime) {
+      } else if (finish < currentTime) {
         setLeaveEarly(true);
       }
     }
@@ -50,7 +50,7 @@ export const useTimeDiff = () => {
       setLeaving(true);
       setLeaveEarly(true);
     }
-  }, [nowTime])
+  }, [currentTime])
 
   // 出退勤時間入力フォームに変更があった際の onChange event
   const onChangeStartTime = (e) => {
@@ -66,12 +66,12 @@ export const useTimeDiff = () => {
 
   // 打刻があった際の onClick event
   const onClickStart = (e) => {
-    localStorage.setItem(e.target.innerText, nowTime);
+    localStorage.setItem(e.target.innerText, currentTime);
     setIsStamp(!isStamp);
     setIsStart(true);
   }
   const onClickFinish = (e) => {
-    localStorage.setItem(e.target.innerText, nowTime);
+    localStorage.setItem(e.target.innerText, currentTime);
     setIsStamp(!isStamp);
     setIsFinish(true);
   }
