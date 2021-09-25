@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export const useUtil = () => {
+const useUtil = () => {
   const [dateTime, setDateTime] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,9 +21,21 @@ export const useUtil = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const dayOfWeekStr = [ '日', '月', '火', '水', '木', '金', '土' ];
-  const today = `${dateTime.years}年${dateTime.month + 1}月${dateTime.date}日(${dayOfWeekStr[dateTime.day]})`;
-  const currentTime = `${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`;
-
-  return {today, currentTime, isLoading}
+  return {dateTime, isLoading}
 }
+
+export const Today = () => {
+  const { dateTime } = useUtil();
+  const dayOfWeekStr = [ '日', '月', '火', '水', '木', '金', '土' ];
+  return `${dateTime.years}年${dateTime.month + 1}月${dateTime.date}日(${dayOfWeekStr[dateTime.day]})`;
+};
+
+export const CurrentTime = () => {
+  const { dateTime } = useUtil();
+  return `${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}`;
+};
+
+export const IsLoading = () => {
+  const { isLoading } = useUtil();
+  return isLoading;
+};

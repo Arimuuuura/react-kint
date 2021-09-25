@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core'
-import { useUtil } from '../shared/util';
+import { CurrentTime, IsLoading, Today } from '../shared/util';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -23,7 +23,10 @@ export const Clock = () => {
 
   const classes = useStyles();
 
-  const { today, currentTime, isLoading } = useUtil();
+  // 必要なデータを取得
+  const today = Today();
+  const currentTime = CurrentTime();
+  const isLoading = IsLoading();
 
   return (isLoading ?
     (

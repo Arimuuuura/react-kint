@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useUtil } from '../shared/util'
+import { CurrentTime } from '../shared/util'
 
 export const useTimeDiff = () => {
   // 各ボタンの state
@@ -15,7 +15,9 @@ export const useTimeDiff = () => {
   // 打刻された際 localStorage の表示を更新するための state
   const [isStamp, setIsStamp] = useState(true)
 
-  const { currentTime } = useUtil();
+  // 現在時刻を取得
+  const currentTime = CurrentTime();
+
   const start = localStorage.getItem('StartTime') || '10:00';
   const finish = localStorage.getItem('FinishTime') || '19:00';
 
