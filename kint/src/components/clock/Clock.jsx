@@ -21,8 +21,9 @@ const useStyles = makeStyles(theme => ({
 
 export const Clock = () => {
 
-  const { today, currentTime, isLoading } = useUtil();
   const classes = useStyles();
+
+  const { today, currentTime, isLoading } = useUtil();
 
   return (isLoading ?
     (

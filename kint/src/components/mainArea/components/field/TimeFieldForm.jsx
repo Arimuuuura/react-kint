@@ -34,10 +34,28 @@ export const TimeFieldForm = () => {
     onChangeFinishTime,
   } = useTimeFieldForm();
 
+  const Fields = [
+    {
+      value: startTimeText,
+      event: onChangeStartTime,
+      label: "Start time",
+      defaultValue: start,
+    },
+    {
+      value: finishTimeText,
+      event: onChangeFinishTime,
+      label: "Finish time",
+      defaultValue: finish,
+    }
+  ]
+
   return (
     <form className={classes.formContainer} noValidate>
-      <Field value={ startTimeText } onChange={onChangeStartTime} label="Start time" type="time" defaultValue={start} />
-      <Field value={ finishTimeText } onChange={onChangeFinishTime} label="Finish time" type="time" defaultValue={finish} />
+      {
+        Fields.map(field => (
+          <Field value={field.value} onChange={field.event} label={field.label} type="time" defaultValue={field.defaultValue} />
+        ))
+      }
     </form>
   )
 }
