@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { useTimeDiff } from '../../function/getTimeDiff';
 import { Field } from './Field'
+import { useTimeFieldForm } from './useTimeFieldForm';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -32,7 +32,7 @@ export const TimeFieldForm = () => {
     finish,
     onChangeStartTime,
     onChangeFinishTime,
-  } = useTimeDiff();
+  } = useTimeFieldForm();
 
   return (
     <form className={classes.formContainer} noValidate>

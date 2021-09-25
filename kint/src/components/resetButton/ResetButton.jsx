@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import { BaseButton } from './base/BaseButton';
+import { Button } from '@material-ui/core';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import { KEYS } from '../../constants/localStorageKey';
+import { ResetData } from './useResetButton';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,22 +18,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export const ResetButton = () => {
 
   const classes = useStyles();
 
-  const onClickReset = () => {
-    alert('localStorage の打刻データを削除しますか？');
-    KEYS.map((key) => (
-      localStorage.removeItem(key.id)
-    ))
-    window.location.reload();
-  }
+  const onClickReset = () => ResetData();
 
   return (
     <div className={classes.container}>
       <div className={classes.buttonContainer}>
-        <BaseButton
+        <Button
           onClick={onClickReset}
           variant="contained"
           color="secondary"
@@ -42,7 +37,7 @@ export const ResetButton = () => {
           startIcon={<RotateLeftIcon />}
         >
           RESET
-        </BaseButton>
+        </Button>
       </div>
     </div>
   );

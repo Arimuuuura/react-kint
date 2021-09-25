@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
-import { KEYS } from '../../constants/localStorageKey';
+import { KEYS } from '../../../../constants/localStorageKey';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

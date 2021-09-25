@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
-export const useTimeData = () => {
+export const useUtil = () => {
   const [dateTime, setDateTime] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 

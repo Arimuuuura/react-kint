@@ -1,7 +1,7 @@
 import React from 'react';
-import { ResetButton } from './components/button/ResetButton';
 import { Clock } from './components/clock/Clock';
-import { MainArea } from './components/MainArea';
+import { MainArea } from './components/mainArea/MainArea';
+import { ResetButton } from './components/resetButton/ResetButton';
 
 export const App = () => {
 
