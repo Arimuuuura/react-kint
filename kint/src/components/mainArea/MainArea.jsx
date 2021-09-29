@@ -2,8 +2,8 @@ import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TimeTable } from './components/timeTable/TimeTable';
 import { TimeFieldForm } from './components/timeFieldForm/TimeFieldForm';
-import { FabButton } from '../shared/components/roundButton/FabButton';
 import { useTimeDiff } from './useMainAria';
+import { RoundButton } from '../shared/components/roundButton/RoundButton';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -82,7 +82,7 @@ export const MainArea = () => {
       <div className={classes.buttonContainer}>
         {
           Buttons.map(button => (
-            <FabButton
+            <RoundButton
               label={button.label}
               disabled={button.action}
               onClick={button.event}
