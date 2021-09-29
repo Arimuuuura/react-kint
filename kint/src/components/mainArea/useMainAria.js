@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CurrentTime } from '../shared/util'
+import { CurrentTime, IsLoading } from '../shared/util'
 
 export const useTimeDiff = () => {
   // 各ボタンの state
@@ -17,36 +17,39 @@ export const useTimeDiff = () => {
 
   // 現在時刻を取得
   const currentTime = CurrentTime();
+  const isLoading = IsLoading();
 
   const start = localStorage.getItem('StartTime') || '10:00';
   const finish = localStorage.getItem('FinishTime') || '19:00';
 
   // 出退勤時間入力フォームの state と現在時刻の差異を毎秒ごとに監視
   useEffect(() => {
-    // 出勤 or 遅刻
-    if (!isStart) {
-      setAttendance(false);
-      setBehind(false);
-      if (start > currentTime) {
-        setBehind(true);
-      } else if (start < currentTime) {
+    if (!isLoading) {
+      // 出勤 or 遅刻
+      if (!isStart) {
+        setAttendance(false);
+        setBehind(false);
+        if (start > currentTime) {
+          setBehind(true);
+        } else if (start < currentTime) {
+          setAttendance(true);
+        }
+      } else {
+        // 退勤 or 早退
         setAttendance(true);
+        setBehind(true);
+        setLeaving(false);
+        setLeaveEarly(false);
+        if (finish > currentTime) {
+          setLeaving(true);
+        } else if (finish < currentTime) {
+          setLeaveEarly(true);
+        }
       }
-    } else {
-      // 退勤 or 早退
-      setAttendance(true);
-      setBehind(true);
-      setLeaving(false);
-      setLeaveEarly(false);
-      if (finish > currentTime) {
+      if (isFinish) {
         setLeaving(true);
-      } else if (finish < currentTime) {
         setLeaveEarly(true);
       }
-    }
-    if (isFinish) {
-      setLeaving(true);
-      setLeaveEarly(true);
     }
     // eslint-disable-next-line
   }, [currentTime])
