@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Field } from './Field'
+import { Field } from '../../../shared/components/field/Field'
 import { useTimeFieldForm } from './useTimeFieldForm';
 
 const useStyles = makeStyles((theme) =>

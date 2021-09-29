@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TimeTable } from './components/table/TimeTable';
-import { TimeFieldForm } from './components/field/TimeFieldForm';
-import { FabButton } from './components/button/FabButton';
+import { TimeTable } from './components/timeTable/TimeTable';
+import { TimeFieldForm } from './components/timeFieldForm/TimeFieldForm';
+import { FabButton } from '../shared/components/roundButton/FabButton';
 import { useTimeDiff } from './useMainAria';
 
 const useStyles = makeStyles((theme) =>

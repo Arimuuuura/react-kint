@@ -4,6 +4,7 @@ import { Fab } from '@material-ui/core';
 
 
 export const FabButton = (props) => {
+  // todo ノーマルボタンをインストールしてスタイリング
   const { label, disabled, onClick, color, hover } = props;
   const useStyles = makeStyles((theme) =>
     createStyles({
