@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core'
-import { CurrentTime, IsLoading, Today } from '../shared/util';
+import { TimeContext } from '../../providers/TimeDataProvider';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -24,9 +24,7 @@ export const Clock = () => {
   const classes = useStyles();
 
   // 必要なデータを取得
-  const today = Today();
-  const currentTime = CurrentTime();
-  const isLoading = IsLoading();
+  const { Today, CurrentTime, isLoading } = useContext(TimeContext);
 
   return (isLoading ?
     (
@@ -36,10 +34,10 @@ export const Clock = () => {
     ) : (
       <header className={classes.container}>
         <div className={classes.today}>
-          { today }
+          { Today }
         </div>
         <div className={classes.currentTime}>
-          { currentTime }
+          { CurrentTime }
         </div>
       </header>
     )

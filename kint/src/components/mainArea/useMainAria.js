@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { CurrentTime, IsLoading } from '../shared/util'
+import { useState, useEffect, useContext } from 'react'
+import { TimeContext } from '../../providers/TimeDataProvider'
 
 export const useTimeDiff = () => {
   // 各ボタンの state
@@ -16,52 +16,44 @@ export const useTimeDiff = () => {
   const [isStamp, setIsStamp] = useState(true)
 
   // 現在時刻を取得
-  const currentTime = CurrentTime();
-  const isLoading = IsLoading();
+  const { CurrentTime, isLoading } = useContext(TimeContext);
 
   const start = localStorage.getItem('StartTime') || '10:00';
   const finish = localStorage.getItem('FinishTime') || '19:00';
 
   // 出退勤時間入力フォームの state と現在時刻の差異を毎秒ごとに監視
   useEffect(() => {
-    if (!isLoading) {
+    if (isLoading) return;
+    if (isStart) {
+      // 退勤 or 早退
+      setAttendance(true);
+      setBehind(true);
+      setLeaving(false);
+      setLeaveEarly(false);
+      finish > CurrentTime && setLeaving(true);
+      finish < CurrentTime && setLeaveEarly(true);
+    } else {
       // 出勤 or 遅刻
-      if (!isStart) {
-        setAttendance(false);
-        setBehind(false);
-        if (start > currentTime) {
-          setBehind(true);
-        } else if (start < currentTime) {
-          setAttendance(true);
-        }
-      } else {
-        // 退勤 or 早退
-        setAttendance(true);
-        setBehind(true);
-        setLeaving(false);
-        setLeaveEarly(false);
-        if (finish > currentTime) {
-          setLeaving(true);
-        } else if (finish < currentTime) {
-          setLeaveEarly(true);
-        }
-      }
-      if (isFinish) {
-        setLeaving(true);
-        setLeaveEarly(true);
-      }
+      setAttendance(false);
+      setBehind(false);
+      start > CurrentTime && setBehind(true);
+      start < CurrentTime && setAttendance(true);
+    }
+    if (isFinish) {
+      setLeaving(true);
+      setLeaveEarly(true);
     }
     // eslint-disable-next-line
-  }, [currentTime])
+  }, [CurrentTime, isStamp])
 
   // 打刻があった際の onClick event
   const onClickStart = (e) => {
-    localStorage.setItem(e.target.innerText, currentTime);
+    localStorage.setItem(e.target.innerText, CurrentTime);
     setIsStamp(!isStamp);
     setIsStart(true);
   }
   const onClickFinish = (e) => {
-    localStorage.setItem(e.target.innerText, currentTime);
+    localStorage.setItem(e.target.innerText, CurrentTime);
     setIsStamp(!isStamp);
     setIsFinish(true);
   }
