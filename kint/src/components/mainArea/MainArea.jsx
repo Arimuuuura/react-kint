@@ -81,8 +81,9 @@ export const MainArea = () => {
       <TimeFieldForm />
       <div className={classes.buttonContainer}>
         {
-          Buttons.map(button => (
+          Buttons.map((button, index) => (
             <RoundButton
+              key={index}
               label={button.label}
               disabled={button.action}
               onClick={button.event}

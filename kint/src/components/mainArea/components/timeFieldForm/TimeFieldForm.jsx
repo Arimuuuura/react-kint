@@ -52,8 +52,8 @@ export const TimeFieldForm = () => {
   return (
     <form className={classes.formContainer} noValidate>
       {
-        Fields.map(field => (
-          <Field value={field.value} onChange={field.event} label={field.label} type="time" defaultValue={field.defaultValue} />
+        Fields.map((field, index) => (
+          <Field key={index} value={field.value} onChange={field.event} label={field.label} type="time" defaultValue={field.defaultValue} />
         ))
       }
     </form>
