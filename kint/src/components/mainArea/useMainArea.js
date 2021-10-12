@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { TimeContext } from '../../providers/TimeDataProvider'
 
-export const useTimeDiff = () => {
+export const useMainArea = () => {
   // 各ボタンの state
   const [attendance, setAttendance] = useState(true)
   const [leaving, setLeaving] = useState(true)

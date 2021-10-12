@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import { makeStyles } from '@material-ui/core'
 import { TimeContext } from '../../providers/TimeDataProvider';
 
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export const Clock = () => {
+export const Clock = memo(() => {
 
   const classes = useStyles();
 
@@ -42,4 +42,4 @@ export const Clock = () => {
       </header>
     )
   )
-}
+})

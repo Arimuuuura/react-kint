@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { TimeTable } from './components/timeTable/TimeTable';
 import { TimeFieldForm } from './components/timeFieldForm/TimeFieldForm';
-import { useTimeDiff } from './useMainAria';
+import { useMainArea } from './useMainArea';
 import { RoundButton } from '../shared/components/roundButton/RoundButton';
 
 const useStyles = makeStyles((theme) =>
@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const MainArea = () => {
+// todo useCallback 使用する
+export const MainArea = memo(() => {
 
   const classes = useStyles();
 
@@ -43,7 +44,7 @@ export const MainArea = () => {
     isStamp,
     onClickStart,
     onClickFinish
-  } = useTimeDiff();
+  } = useMainArea();
 
   const Buttons = [
     {
@@ -96,4 +97,4 @@ export const MainArea = () => {
       <TimeTable isStamp={isStamp} />
     </div>
   )
-}
+})

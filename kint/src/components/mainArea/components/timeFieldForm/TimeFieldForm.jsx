@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Field } from '../../../shared/components/field/Field'
 import { useTimeFieldForm } from './useTimeFieldForm';
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const TimeFieldForm = () => {
+export const TimeFieldForm = memo(() => {
 
   const classes = useStyles();
 
@@ -58,4 +58,4 @@ export const TimeFieldForm = () => {
       }
     </form>
   )
-}
+})

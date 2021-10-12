@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 
-export const RoundButton = (props) => {
+export const RoundButton = memo((props) => {
   const { label, disabled, onClick, color, hover } = props;
   const useStyles = makeStyles((theme) =>
     createStyles({
@@ -25,4 +25,4 @@ export const RoundButton = (props) => {
   return (
     <Button className={classes.ButtonStyle} disabled={disabled} onClick={onClick}>{label}</Button>
   )
-}
+})

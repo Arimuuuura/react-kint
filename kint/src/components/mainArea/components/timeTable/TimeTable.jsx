@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import { KEYS } from '../../../../constants/localStorageKey';
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const TimeTable = () => {
+export const TimeTable = memo(() => {
 
   const classes = useStyles();
 
@@ -55,4 +55,4 @@ export const TimeTable = () => {
       </Table>
     </TableContainer>
   )
-}
+})

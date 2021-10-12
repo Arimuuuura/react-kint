@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const ResetButton = () => {
+export const ResetButton = memo(() => {
 
   const classes = useStyles();
 
@@ -41,4 +41,4 @@ export const ResetButton = () => {
       </div>
     </div>
   );
-}
+})
